@@ -291,7 +291,7 @@ def getISAPIExtensionPath(ecb_server_vars):
     # It will be something like MD='/LM/W3SVC/1/ROOT/test'
     appl_md_path = ecb_server_vars["APPL_MD_PATH"]
     appl_md_path = FoldedCaseString(appl_md_path)
-    site, pos = appl_md_path.split("/ROOT", 1)
+    site, pos = re.compile("/root", flags = re.IGNORECASE).split(appl_md_path, 1)
     return pos
 
 class ISAPIInputWrapper:
