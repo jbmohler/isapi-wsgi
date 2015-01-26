@@ -1,6 +1,4 @@
 """
-$Id$
-
 This is a ISAPI extension for a wsgi with 2 handlers classes.
 
     - ISAPISimpleHandler which creates a new IsapiWsgiHandler object for
@@ -13,12 +11,12 @@ Dependecies:
     - win32 extensions
     - wsgiref library from http://cvs.eby-sarna.com/wsgiref/
 
-Based on isapi/test/extension_simple.py, PEP 333 etc
+Based on isapi/test/extension_simple.py, PEP 333 etc.  This is forked from
+https://code.google.com/p/isapi-wsgi/ by Joel B. Mohler.
 
 """
 __author__ = "Mark Rees <mark.john.rees@gmail.com>"
-__release__ = "0.4"
-__version__ = "$Rev$ $LastChangedDate$"
+__release__ = "0.4.2"
 __url__ = "http://isapi-wsgi.googlecode.com"
 __description__ = "ISAPI WSGI Handler"
 __license__ = "MIT"
