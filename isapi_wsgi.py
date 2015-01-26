@@ -27,9 +27,9 @@ if hasattr(sys, "isapidllhandle"):
     import win32traceutil
 
 try:
-	import isapi
+    import isapi
 except ImportError:
-	raise ImportError("Could not find module isapi.  isapi_wsgi requires pywin32")
+    raise ImportError("Could not find module isapi.  isapi_wsgi requires pywin32")
 from isapi import isapicon, ExtensionError
 from isapi.simple import SimpleExtension
 from isapi.threaded_extension import ThreadPoolExtension
@@ -40,8 +40,13 @@ import os
 import stat
 import string
 import re
-try: from cStringIO import StringIO
-except ImportError: from StringIO import StringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    try:
+        from StringIO import StringIO
+    except ImportError:
+        from io import StringIO
 
 
 traceon = 0
@@ -122,7 +127,7 @@ class ECBDictAdapter(object):
         try:
             return self._get_variable(key)
         except ExtensionError:
-            raise KeyError, key
+            raise KeyError(key)
 
     # a few helpers specific to the IIS and python version.
     def _get_variable(self, key):
@@ -150,7 +155,7 @@ def path_references_application(path, apps):
     
     """
     # assume separator is /
-    nodes = filter(None, path.split('/'))
+    nodes = [item for item in path.split('/') if len(item) > 0]
     return nodes and nodes[0] in apps
 
 def interpretPathInfo(ecb_server_vars, app_names=[]):
@@ -522,12 +527,12 @@ def PreInstallDirectory(params, options):
 
 # Post install hook for our entire script
 def PostInstall(params, options):
-    print "Extension installed"
+    print("Extension installed")
 
 # Handler for our custom 'status' argument.
 def status_handler(options, log, arg):
     "Query the status of something"
-    print "Everything seems to be fine!"
+    print("Everything seems to be fine!")
 
 custom_arg_handlers = {"status": status_handler}
 
