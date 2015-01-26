@@ -15,6 +15,8 @@ Based on isapi/test/extension_simple.py, PEP 333 etc.  This is forked from
 https://code.google.com/p/isapi-wsgi/ by Joel B. Mohler.
 
 """
+from __future__ import print_function
+
 __author__ = "Mark Rees <mark.john.rees@gmail.com>"
 __release__ = "0.4.2"
 __url__ = "http://isapi-wsgi.googlecode.com"
@@ -508,7 +510,8 @@ def test(environ, start_response):
     '''Simple app as per PEP 333'''
     status = '200 OK'
     start_response(status, [('Content-type', 'text/plain')])
-    return ['Hello world from isapi!']
+    # TODO:  Is the b str prefix valid in 2.6?
+    return [b'Hello world from isapi!']
 
 
 # The entry points for the ISAPI extension.
