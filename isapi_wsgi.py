@@ -43,12 +43,13 @@ import stat
 import string
 import re
 try:
-    from cStringIO import StringIO
+    # this works in Python 2.7 and Python 3.x
+    from io import BytesIO
 except ImportError:
     try:
-        from StringIO import StringIO
+        from cStringIO import StringIO as BytesIO
     except ImportError:
-        from io import StringIO
+        from StringIO import StringIO as BytesIO
 
 
 traceon = 0
@@ -299,7 +300,7 @@ def getISAPIExtensionPath(ecb_server_vars):
 class ISAPIInputWrapper:
     # Based on ModPythonInputWrapper in mp_wsgi_handler.py
     def __init__(self, ecb):
-        self._in = StringIO()
+        self._in = BytesIO()
         self._ecb = ecb
         if self._ecb.AvailableBytes > 0:
             data = self._ecb.AvailableData
